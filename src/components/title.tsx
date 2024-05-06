@@ -4,7 +4,7 @@ interface ITitle {
     fontWeight?: string,
     color?: string,
     marginBotton?: string,
-    children: any
+    children: React.ReactNode
 }
 
 export default function Title(props:ITitle) {

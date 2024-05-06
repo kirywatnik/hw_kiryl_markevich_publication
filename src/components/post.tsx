@@ -1,18 +1,36 @@
 import { useState } from "react";
 
-import Picture from '../../public/i.webp';
+import Picture from '../assets/i.webp';
 
-export default function Post(props:any){
+interface LayoutProps  { 
+    children: React.ReactNode,
+    title: string,
+ }
+
+export default function Post(props:LayoutProps){
+    let array = [{title:props.title, img: Picture, children:props.children }];
+    
     const [isVisible, setVisible] = useState(false);
     const showText = () => {
         setVisible(!isVisible);
     }
-    return(
+    const posts = array.map((item) => {
+        return(
         <>
-            <a href="#" style={{textDecoration:'none'}}><p style={{fontWeight:700, fontSize: '26px'}}>{props.title}</p></a>
+            <p style={{fontWeight:700, fontSize: '26px'}}>{item.title}</p>
+                <div><img src={item.img} alt="" /></div>
+                {isVisible && <p>{item.children}</p>}
+                <button onClick={showText}> {!isVisible && <p>Читать</p>} {isVisible && <p>Закрыть</p>}</button>
+        </>
+        )
+    })
+    return(
+        <>  
+            {posts}
+            {/* <a href="#" style={{textDecoration:'none'}}><p style={{fontWeight:700, fontSize: '26px'}}>{props.title}</p></a>
             <div><a href="#"><img src={Picture} alt="" /></a></div>
             {isVisible && <p>{props.children}</p>}
-            <button onClick={showText}> {!isVisible && <p>Читать</p>} {isVisible && <p>Закрыть</p>}</button>
+            <button onClick={showText}> {!isVisible && <p>Читать</p>} {isVisible && <p>Закрыть</p>}</button> */}
         </>
     )
 }
